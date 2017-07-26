@@ -14,6 +14,7 @@
 		<slf4j.version>1.7.25</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
+		<commons-pool2.version>2.2</commons-pool2.version>
 	</properties>
 	<dependencies>
 		<!-- # netty dependency: begin -->
@@ -101,6 +102,14 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring-framework.version}</version>
 		</dependency>
+		
+		<!-- commons-pool2(support netty/mina client) -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<version>${commons-pool2.version}</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>rpc-server</finalName>

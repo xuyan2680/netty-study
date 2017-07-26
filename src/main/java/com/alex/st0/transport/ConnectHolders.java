@@ -16,6 +16,7 @@ import io.netty.channel.ChannelFutureListener;
  * @author xuykj
  *
  */
+@Deprecated
 public class ConnectHolders {
 	private Map<String, Channel> connectHolds = new ConcurrentHashMap<String, Channel>();
 	private static ConnectHolders ch = new ConnectHolders();

@@ -130,9 +130,6 @@ public abstract class ConnectionWatchdog extends ChannelInboundHandlerAdapter
 
 				if (!succeed) {
 					f.channel().pipeline().fireChannelInactive();
-				}else{
-					InetSocketAddress isa = (InetSocketAddress)remoteAddress;
-					ConnectHolders.getInstance().addConnect(isa.getHostString(), f.channel());
 				}
 			}
 		});

@@ -10,7 +10,6 @@ import com.alex.st0.handler.BizClientHandler;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -29,6 +28,7 @@ import io.netty.util.HashedWheelTimer;
 public class Client {
 	private EventLoopGroup group;
 	final HashedWheelTimer timer = new HashedWheelTimer();
+	private Channel channel;
 
 	private Bootstrap init() {
 		group = new NioEventLoopGroup();
@@ -59,7 +59,25 @@ public class Client {
 				ch.pipeline().addLast(watchdog.handlers());
 			}
 		});
-		ChannelFuture cf = bootstrap.connect(socketAddress).sync();
-		ConnectHolders.getInstance().addConnect(ip + ":" + port, cf.channel());
+		this.channel = bootstrap.connect(socketAddress).sync().channel();
+	}
+
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public boolean isValidate() {
+		if (this.channel != null) {
+			return this.channel.isActive();
+		}
+		return false;
+	}
+
+	public void close() {
+		if (this.channel != null) {
+			if (this.channel.isOpen()) {
+				this.channel.close();
+			}
+		}
 	}
 }
